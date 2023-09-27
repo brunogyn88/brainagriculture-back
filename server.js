@@ -2,8 +2,13 @@ import { fastify } from 'fastify';
 // import { DatabaseMemory } from './database.memory.js';
 import { DatabasePostgres } from './database-postgres.js';
 import { cpf as cpfValidator, cnpj as cnpjValidator } from 'cpf-cnpj-validator';
+import cors from '@fastify/cors';
 
 const server = fastify();
+
+await server.register(cors, {
+  origin: '*',
+});
 
 // const database = new DatabaseMemory();
 const database = new DatabasePostgres();
@@ -77,6 +82,10 @@ server.delete('/ruralproducer/:id', async (request, reply) => {
   const { id } = request.params;
   await database.delete(id);
   return reply.status(204).send();
+});
+
+server.get('/ruralproducer/plantedcrop', async () => {
+  return await database.listPlantedcrop();
 });
 
 server.listen({ port: 3333 });
