@@ -1,9 +1,11 @@
 import { fastify } from 'fastify';
-import { DatabaseMemory } from './database.memory.js';
+// import { DatabaseMemory } from './database.memory.js';
+import { DatabasePostgres } from './database-postgres.js';
 
 const server = fastify();
 
-const database = new DatabaseMemory();
+// const database = new DatabaseMemory();
+const database = new DatabasePostgres();
 
 server.get('/ruralproducer', () => {
   const ruralproducers = database.list();
@@ -20,7 +22,6 @@ server.post('/ruralproducer', (request, reply) => {
     totalAreaHectaresFarm,
     arableAreaHectares,
     vegetationAreaHectares,
-    plantedCrops,
   } = request.body;
 
   database.create({
@@ -32,7 +33,6 @@ server.post('/ruralproducer', (request, reply) => {
     totalAreaHectaresFarm,
     arableAreaHectares,
     vegetationAreaHectares,
-    plantedCrops,
   });
 
   console.log(database.list());
@@ -51,7 +51,6 @@ server.put('/ruralproducer/:id', (request, reply) => {
     totalAreaHectaresFarm,
     arableAreaHectares,
     vegetationAreaHectares,
-    plantedCrops,
   } = request.body;
 
   const ruralproducer = database.update(id, {
@@ -63,7 +62,6 @@ server.put('/ruralproducer/:id', (request, reply) => {
     totalAreaHectaresFarm,
     arableAreaHectares,
     vegetationAreaHectares,
-    plantedCrops,
   });
 
   return reply.status(204).send();
