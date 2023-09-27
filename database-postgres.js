@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { sql } from './db';
+import { sql } from './db.js';
 
 export class DatabasePostgres {
   async list() {
@@ -24,7 +24,25 @@ export class DatabasePostgres {
         ${totalAreaHectaresFarm}, ${arableAreaHectares}, ${vegetationAreaHectares})`;
   }
 
-  update(id, ruralproducer) {}
+  async update(id, ruralproducer) {
+    const {
+      producerName,
+      farmName,
+      cpfCnpj,
+      city,
+      state,
+      totalAreaHectaresFarm,
+      arableAreaHectares,
+      vegetationAreaHectares,
+    } = ruralproducer;
 
-  delete(id) {}
+    await sql`update ruralproducer set producerName = ${producerName}, 
+      farmName = ${farmName}, cpfCnpj = ${cpfCnpj}, city = ${city}, state = ${state}, 
+      totalAreaHectaresFarm = ${totalAreaHectaresFarm}, arableAreaHectares = ${arableAreaHectares}, 
+      vegetationAreaHectares = ${vegetationAreaHectares} where id = ${id}`;
+  }
+
+  async delete(id) {
+    await sql`delete from ruralproducer where id = ${id}`;
+  }
 }

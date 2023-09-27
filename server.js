@@ -7,12 +7,11 @@ const server = fastify();
 // const database = new DatabaseMemory();
 const database = new DatabasePostgres();
 
-server.get('/ruralproducer', () => {
-  const ruralproducers = database.list();
-  return ruralproducers;
+server.get('/ruralproducer', async () => {
+  return await database.list();
 });
 
-server.post('/ruralproducer', (request, reply) => {
+server.post('/ruralproducer', async (request, reply) => {
   const {
     producerName,
     farmName,
@@ -24,7 +23,7 @@ server.post('/ruralproducer', (request, reply) => {
     vegetationAreaHectares,
   } = request.body;
 
-  database.create({
+  await database.create({
     producerName,
     farmName,
     cpfCnpj,
@@ -40,7 +39,7 @@ server.post('/ruralproducer', (request, reply) => {
   return reply.status(201).send();
 });
 
-server.put('/ruralproducer/:id', (request, reply) => {
+server.put('/ruralproducer/:id', async (request, reply) => {
   const { id } = request.params;
   const {
     producerName,
@@ -53,7 +52,7 @@ server.put('/ruralproducer/:id', (request, reply) => {
     vegetationAreaHectares,
   } = request.body;
 
-  const ruralproducer = database.update(id, {
+  await database.update(id, {
     producerName,
     farmName,
     cpfCnpj,
@@ -67,10 +66,9 @@ server.put('/ruralproducer/:id', (request, reply) => {
   return reply.status(204).send();
 });
 
-server.delete('/ruralproducer/:id', (request, reply) => {
+server.delete('/ruralproducer/:id', async (request, reply) => {
   const { id } = request.params;
-  database.delete(id);
-
+  await database.delete(id);
   return reply.status(204).send();
 });
 

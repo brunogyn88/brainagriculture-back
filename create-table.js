@@ -1,10 +1,11 @@
+import { randomUUID } from 'crypto';
 import { sql } from './db.js';
 
 async function createTables() {
   try {
     await sql`
       CREATE TABLE ruralproducer (
-          id SERIAL PRIMARY KEY,
+          id TEXT PRIMARY KEY,
           producerName VARCHAR(255) NOT NULL,
           farmName VARCHAR(255) NOT NULL,
           cpfCnpj VARCHAR(14) NOT NULL,
@@ -18,21 +19,28 @@ async function createTables() {
 
     await sql`
       CREATE TABLE plantedCrop (
-          id SERIAL PRIMARY KEY,
-          cropName VARCHAR(255) NOT NULL,
-          areaHectares FLOAT NOT NULL
+          id TEXT PRIMARY KEY,
+          cropName VARCHAR(255) NOT NULL
       );
     `;
 
     await sql`
       CREATE TABLE ruralproducer_plantedcrop (
-          ruralproducerId INTEGER NOT NULL REFERENCES ruralproducer(id),
-          plantedCropId INTEGER NOT NULL REFERENCES plantedCrop(id),
+          ruralproducerId TEXT NOT NULL REFERENCES ruralproducer(id),
+          plantedCropId TEXT NOT NULL REFERENCES plantedCrop(id),
           PRIMARY KEY (ruralproducerId, plantedCropId)
       );
     `;
 
-    console.log('Tabelas criadas com sucesso.');
+    ['Soja', 'Milho', 'Algodão', 'Café', 'Cana de Açucar'].forEach(
+      async (item) => {
+        await sql`
+            insert into plantedCrop (id, cropName) values (${randomUUID()}, ${item});
+    `;
+      }
+    );
+
+    console.log('Created tables.');
   } catch (err) {
     console.error('Erro: ' + err);
   }

@@ -9,8 +9,7 @@ Content-Type: application/json
     "state": "Goiás",
     "totalAreaHectaresFarm": 1000,
     "arableAreaHectares": 100,
-    "vegetationAreaHectares": 80,
-    "plantedCrops": [1]
+    "vegetationAreaHectares": 80
 }
 
 ###
@@ -19,7 +18,7 @@ GET http://localhost:3333/ruralproducer
 
 ###
 
-PUT http://localhost:3333/ruralproducer/66315400-dc09-4ce1-b7a9-aee022112b45
+PUT http://localhost:3333/ruralproducer/4b507eb2-761a-4041-8a42-071cd30ee4fe
 Content-Type: application/json
 
 {
@@ -30,10 +29,9 @@ Content-Type: application/json
     "state": "Goiás",
     "totalAreaHectaresFarm": 1100,
     "arableAreaHectares": 100,
-    "vegetationAreaHectares": 80,
-    "plantedCrops": [1]
+    "vegetationAreaHectares": 80
 }
 
 ###
 
-DELETE http://localhost:3333/ruralproducer/82ba9102-9701-47fa-87b9-ff2ed9adc6dd
+DELETE http://localhost:3333/ruralproducer/4b507eb2-761a-4041-8a42-071cd30ee4fe
