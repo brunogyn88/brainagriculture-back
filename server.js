@@ -1,6 +1,7 @@
 import { fastify } from 'fastify';
 // import { DatabaseMemory } from './database.memory.js';
 import { DatabasePostgres } from './database-postgres.js';
+import { cpf as cpfValidator, cnpj as cnpjValidator } from 'cpf-cnpj-validator';
 
 const server = fastify();
 
@@ -21,8 +22,15 @@ server.post('/ruralproducer', async (request, reply) => {
     totalAreaHectaresFarm,
     arableAreaHectares,
     vegetationAreaHectares,
+    plantedCrops,
   } = request.body;
 
+  const cpfCnpjValid =
+    cpfCnpj.length > 14
+      ? cnpjValidator.isValidCnpj(cpfCnpj)
+      : cpfValidator.isValid(cpfCnpj);
+
+  if (!cpfCnpjValid) return reply.status(400).send('invalid cpf or cnpj');
   await database.create({
     producerName,
     farmName,
@@ -32,9 +40,8 @@ server.post('/ruralproducer', async (request, reply) => {
     totalAreaHectaresFarm,
     arableAreaHectares,
     vegetationAreaHectares,
+    plantedCrops,
   });
-
-  console.log(database.list());
 
   return reply.status(201).send();
 });

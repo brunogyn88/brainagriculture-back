@@ -8,12 +8,13 @@ async function createTables() {
           id TEXT PRIMARY KEY,
           producerName VARCHAR(255) NOT NULL,
           farmName VARCHAR(255) NOT NULL,
-          cpfCnpj VARCHAR(14) NOT NULL,
+          cpfCnpj VARCHAR(18) NOT NULL,
           city VARCHAR(255) NOT NULL,
           state VARCHAR(255) NOT NULL,
           totalAreaHectaresFarm FLOAT NOT NULL,
           arableAreaHectares FLOAT NOT NULL,
-          vegetationAreaHectares FLOAT NOT NULL
+          vegetationAreaHectares FLOAT NOT NULL,
+          CONSTRAINT unique_cpfCnpj UNIQUE (cpfCnpj)
       );
     `;
 

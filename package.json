@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cpf-cnpj-validator": "^1.0.3",
     "fastify": "^4.23.2",
     "postgres": "^3.3.5"
   },

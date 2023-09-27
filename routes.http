@@ -4,12 +4,13 @@ Content-Type: application/json
 {
     "producerName": "ruralproducer1",
     "farmName": "farmname1",
-    "cpfCnpj": "111.222.333-11",
+    "cpfCnpj": "547.083.380-15",
     "city": "Goiânia",
     "state": "Goiás",
     "totalAreaHectaresFarm": 1000,
     "arableAreaHectares": 100,
-    "vegetationAreaHectares": 80
+    "vegetationAreaHectares": 80,
+    "plantedCrops": ["ef73954c-d0a0-402d-a44c-e344df89b815", "0e74eea6-fc6d-420a-8d67-de21d938cfae"]
 }
 
 ###

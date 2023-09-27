@@ -17,11 +17,24 @@ export class DatabasePostgres {
       totalAreaHectaresFarm,
       arableAreaHectares,
       vegetationAreaHectares,
+      plantedCrops,
     } = ruralproducer;
-    await sql`insert into ruralproducer (id, producerName, farmName, cpfCnpj, city, state, 
+
+    try {
+      await sql`INSERT INTO ruralproducer (id, producerName, farmName, cpfCnpj, city, state, 
         totalAreaHectaresFarm, arableAreaHectares, vegetationAreaHectares) VALUES 
         (${ruralProducerId}, ${producerName}, ${farmName}, ${cpfCnpj}, ${city}, ${state}, 
         ${totalAreaHectaresFarm}, ${arableAreaHectares}, ${vegetationAreaHectares})`;
+
+      for (const element of plantedCrops) {
+        await sql`INSERT INTO ruralproducer_plantedcrop (ruralproducerid, plantedcropid) VALUES 
+          (${ruralProducerId}, ${element})`;
+      }
+
+      console.log('Dados inseridos com sucesso.');
+    } catch (error) {
+      console.error('Erro ao inserir dados:', error);
+    }
   }
 
   async update(id, ruralproducer) {
