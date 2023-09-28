@@ -56,7 +56,11 @@ export class DatabasePostgres {
   }
 
   async delete(id) {
-    await sql`delete from ruralproducer where id = ${id}`;
+    await sql`delete from ruralproducer_plantedcrop where ruralproducerid = ${id}`.then(
+      async () => {
+        await sql`delete from ruralproducer where id = ${id}`;
+      }
+    );
   }
 
   async listPlantedcrop() {
